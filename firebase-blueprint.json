@@ -1,0 +1,166 @@
+{
+  "entities": {
+    "UserProfile": {
+      "title": "UserProfile",
+      "description": "Student profile, gamification stats, and progress in Trilha do Saber",
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "Student name"
+        },
+        "grade": {
+          "type": "string",
+          "description": "Academic grade level"
+        },
+        "avatar": {
+          "type": "string",
+          "description": "Avatar emoji or identifier"
+        },
+        "avatarId": {
+          "type": "string",
+          "description": "Thematic avatar identifier"
+        },
+        "totalPoints": {
+          "type": "number",
+          "description": "Total accumulated XP points"
+        },
+        "completedChallenges": {
+          "type": "number",
+          "description": "Count of completed challenges"
+        },
+        "totalCorrectAnswers": {
+          "type": "number",
+          "description": "Count of correct answers"
+        },
+        "streakDays": {
+          "type": "number",
+          "description": "Daily study streak count"
+        },
+        "email": {
+          "type": "string",
+          "description": "User email address if logged in"
+        },
+        "phoneNumber": {
+          "type": "string",
+          "description": "User verified phone number in international E.164 format"
+        },
+        "photoURL": {
+          "type": "string",
+          "description": "User profile photo URL"
+        },
+        "lastSyncedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last synchronization"
+        }
+      },
+      "required": ["name", "grade", "totalPoints"]
+    },
+    "FCMDeviceToken": {
+      "title": "FCMDeviceToken",
+      "description": "Registered FCM token and device notification settings for study reminders",
+      "type": "object",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "FCM Device Token"
+        },
+        "userId": {
+          "type": "string",
+          "description": "User identifier"
+        },
+        "studentName": {
+          "type": "string",
+          "description": "Student name for personalized notification copy"
+        },
+        "advanceNoticeMinutes": {
+          "type": "number",
+          "description": "Minutes before scheduled subject start time to send reminder"
+        },
+        "devicePlatform": {
+          "type": "string",
+          "description": "Device platform e.g. web, mobile, pwa"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether FCM notifications are active"
+        },
+        "updatedAt": {
+          "type": "string",
+          "description": "ISO timestamp of last token update"
+        }
+      },
+      "required": ["token", "userId", "enabled"]
+    },
+    "StudyScheduleReminder": {
+      "title": "StudyScheduleReminder",
+      "description": "Student study schedule reminder item with advance alert configuration",
+      "type": "object",
+      "properties": {
+        "userId": {
+          "type": "string",
+          "description": "Student user ID"
+        },
+        "subjectId": {
+          "type": "string",
+          "description": "Subject identifier"
+        },
+        "subjectName": {
+          "type": "string",
+          "description": "Subject display name"
+        },
+        "time": {
+          "type": "string",
+          "description": "Scheduled start time (HH:MM)"
+        },
+        "advanceNoticeMinutes": {
+          "type": "number",
+          "description": "Minutes before schedule to trigger reminder e.g. 5, 10, 15"
+        },
+        "enabled": {
+          "type": "boolean",
+          "description": "Whether the reminder is enabled"
+        },
+        "notes": {
+          "type": "string",
+          "description": "Personalized study notes or objectives"
+        }
+      },
+      "required": ["userId", "subjectId", "subjectName", "time", "enabled"]
+    },
+    "AppMetrics": {
+      "title": "AppMetrics",
+      "description": "Global statistics and metrics such as total users/visitors count",
+      "type": "object",
+      "properties": {
+        "totalVisitors": {
+          "type": "number",
+          "description": "Total number of students who entered the app"
+        },
+        "lastVisitAt": {
+          "type": "string",
+          "description": "ISO timestamp of last entry"
+        }
+      },
+      "required": ["totalVisitors"]
+    }
+  },
+  "firestore": {
+    "/users/{userId}": {
+      "schema": "UserProfile",
+      "description": "Collection storing student profile and sync state"
+    },
+    "/users/{userId}/fcmTokens/{tokenId}": {
+      "schema": "FCMDeviceToken",
+      "description": "Collection of FCM device tokens for study reminders"
+    },
+    "/users/{userId}/reminders/{reminderId}": {
+      "schema": "StudyScheduleReminder",
+      "description": "Student study schedule reminders with advance notification configuration"
+    },
+    "/public_stats/{statId}": {
+      "schema": "AppMetrics",
+      "description": "Public metrics collection for tracking student count and visits"
+    }
+  }
+}

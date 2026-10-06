@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">Trilha do Saber</string>
+    <string name="app_short_name">Trilha do Saber</string>
+    <string name="package_name">com.trilhadosaber.estudefacil</string>
+    <string name="default_web_url">https://ais-pre-nh6zh6xftz73tprnqepdfa-644389770945.us-east1.run.app</string>
+    <string name="permission_camera_rationale">O Trilha do Saber precisa da câmera para capturar fotos do caderno ou livro didático e gerar provas automáticas.</string>
+    <string name="permission_audio_rationale">O Trilha do Saber precisa do microfone para responder perguntas por voz durante os desafios.</string>
+    <string name="permission_notifications_rationale">Permita notificações para receber lembretes de estudo e alertas de metas diárias.</string>
+</resources>

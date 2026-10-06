@@ -1,0 +1,12 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.trilhadosaber.estudefacil",
+      "sha256_cert_fingerprints": [
+        "SUBSTITUA_PELO_SHA256_DO_SEU_KEYSTORE_OU_PLAY_APP_SIGNING"
+      ]
+    }
+  }
+]

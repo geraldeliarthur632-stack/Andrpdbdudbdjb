@@ -1,0 +1,58 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Reusable helper functions
+    function isSignedIn() {
+      return request.auth != null;
+    }
+
+    function isOwner(userId) {
+      return isSignedIn() && request.auth.uid == userId;
+    }
+
+    function isValidId(id) {
+      return id is string && id.size() > 0 && id.size() <= 128;
+    }
+
+    // Default deny for unmatched collections
+    match /{document=**} {
+      allow read, write: if false;
+    }
+
+    // Health and connectivity check
+    match /test/{docId} {
+      allow read: if true;
+      allow write: if false;
+    }
+
+    // Student profile and sync collection - Restricted strictly to authenticated owner
+    match /users/{userId} {
+      allow get: if isOwner(userId);
+      allow list: if false;
+      allow create, update: if isOwner(userId) && isValidId(userId);
+      allow delete: if isOwner(userId);
+
+      // Subcollection for FCM device tokens
+      match /fcmTokens/{tokenId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Subcollection for Study Schedule reminders
+      match /reminders/{reminderId} {
+        allow read, write: if isOwner(userId);
+      }
+
+      // Fallback for other subcollections under users/{userId}
+      match /{allSubcollections=**} {
+        allow read, write: if isOwner(userId);
+      }
+    }
+
+    // Public metrics and community student count
+    match /public_stats/{statId} {
+      allow read: if true;
+      allow create, update: if isValidId(statId);
+      allow delete: if false;
+    }
+  }
+}

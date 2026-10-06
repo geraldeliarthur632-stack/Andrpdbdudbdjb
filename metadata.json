@@ -1,0 +1,10 @@
+{
+  "name": "Remix Remix Trilha do saber",
+  "description": "Estude bastante... e utilize este aplicativo para organizar seu cronograma de estudos com lembretes diários, jogue com seus amigos competir e se divirta enquanto conquista emblemas de desempenho ao alcançar suas metas acadêmicas !!!",
+  "requestFramePermissions": [
+    "camera"
+  ],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
